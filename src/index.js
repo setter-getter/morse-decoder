@@ -38,36 +38,58 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    let arr = 'm e'.split('');
-    console.log(arr);
-    let str_1 = '';
+    let arr = [];
+    let arr2 = [];
+    let arr3 = [];
     let res = '';
+    while (expr.length > 0) {
+        let el = expr.slice(0, 10);
+        arr.push(el);
+        expr = expr.slice(el.length);
+    }
     for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === ' ') {
-            str_1 += '**********';
-            res += str_1;
-            str_1 = '';
+        if (arr[i] != '**********') {
+            for (let el = 0; el < arr[i].length; el++) {
+                if (arr[i][el] === '1') {
+                    arr2.push(arr[i].slice(el));
+                    break;
+                }
+            }
+        }
+        else {
+            arr2.push(' ')
+        }
+    }
+
+    for (let i = 0; i < arr2.length; i++) {
+        let symb_e = ''
+        while (arr2[i].length > 0) {
+            let el = arr2[i].slice(0, 2);
+            if (el === '11') {
+                symb_e += '-'
+            }
+            else if (el === '10') {
+                symb_e += '.'
+            }
+            else {
+                symb_e += ' ';
+            }
+            arr2[i] = arr2[i].slice(el.length);
+        }
+        arr3.push(symb_e);
+    }
+
+    for (let i = 0; i < arr3.length; i++) {
+        if (arr3[i] === ' ') {
+            res += ' ';
         }
         for (let key in MORSE_TABLE) {
-            if (arr[i] === MORSE_TABLE[key]) {
-                for (let i in key) {
-                    if (key[i] === '-') {
-                        str_1 += '11'
-                    }
-                    if (key[i] === '.') {
-                        str_1 += '10'
-                    }
-                }
-                let s1 = '';
-                for (let i = str_1.length; i < 10; i++) {
-                    s1 += 0;
-                }
-                res += (s1 + str_1);
-                str_1 = '';
-                s1 = '';
+            if (arr3[i] === key) {
+                res += MORSE_TABLE[key];
             }
         }
     }
+
     return res
 }
 
@@ -75,38 +97,5 @@ module.exports = {
     decode
 }
 
-
-
-// let arr = 'm e'.split('');
-// console.log(arr);
-// let str_1 = '';
-// let res = '';
-// for (let i = 0; i < arr.length; i++) {
-//     if (arr[i] === ' ') {
-//         str_1 += '**********';
-//         res += str_1;
-//         str_1 = '';
-//     }
-//     for (let key in MORSE_TABLE) {
-//         if (arr[i] === MORSE_TABLE[key]) {
-//             for (let i in key) {
-//                 if (key[i] === '-') {
-//                     str_1 += '11'
-//                 }
-//                 if (key[i] === '.') {
-//                     str_1 += '10'
-//                 }
-//             }
-//             let s1 = '';
-//             for (let i = str_1.length; i < 10; i++) {
-//                 s1 += 0;
-//             }
-//             res += (s1 + str_1);
-//             str_1 = '';
-//             s1 = '';
-//         }
-//     }
-// }
-// console.log(res);
 
 
