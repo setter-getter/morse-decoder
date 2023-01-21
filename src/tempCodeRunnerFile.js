@@ -1,1 +1,3 @@
-console.log(arr_3);
+    if (arr[i] === ' ') {
+        str_1 += '**********'
+    }

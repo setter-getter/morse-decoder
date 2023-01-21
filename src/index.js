@@ -38,31 +38,37 @@ const MORSE_TABLE = {
 };
 
 function decode(expr) {
-    let arr = expr.split('');
-    let srt_1 = '';
+    let arr = 'm e'.split('');
+    console.log(arr);
+    let str_1 = '';
     let res = '';
     for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === ' ') {
+            str_1 += '**********';
+            res += str_1;
+            str_1 = '';
+        }
         for (let key in MORSE_TABLE) {
             if (arr[i] === MORSE_TABLE[key]) {
                 for (let i in key) {
                     if (key[i] === '-') {
-                        srt_1 += '11'
+                        str_1 += '11'
                     }
-                    else {
-                        srt_1 += '10'
+                    if (key[i] === '.') {
+                        str_1 += '10'
                     }
                 }
                 let s1 = '';
-                for (let i = srt_1.length; i < 10; i++) {
+                for (let i = str_1.length; i < 10; i++) {
                     s1 += 0;
                 }
-                res += (s1 + srt_1);
-                srt_1 = '';
+                res += (s1 + str_1);
+                str_1 = '';
                 s1 = '';
             }
         }
     }
-   return res  
+    return res
 }
 
 module.exports = {
@@ -71,6 +77,36 @@ module.exports = {
 
 
 
-
+// let arr = 'm e'.split('');
+// console.log(arr);
+// let str_1 = '';
+// let res = '';
+// for (let i = 0; i < arr.length; i++) {
+//     if (arr[i] === ' ') {
+//         str_1 += '**********';
+//         res += str_1;
+//         str_1 = '';
+//     }
+//     for (let key in MORSE_TABLE) {
+//         if (arr[i] === MORSE_TABLE[key]) {
+//             for (let i in key) {
+//                 if (key[i] === '-') {
+//                     str_1 += '11'
+//                 }
+//                 if (key[i] === '.') {
+//                     str_1 += '10'
+//                 }
+//             }
+//             let s1 = '';
+//             for (let i = str_1.length; i < 10; i++) {
+//                 s1 += 0;
+//             }
+//             res += (s1 + str_1);
+//             str_1 = '';
+//             s1 = '';
+//         }
+//     }
+// }
+// console.log(res);
 
 
